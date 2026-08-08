@@ -196,6 +196,11 @@ h1.cover-title .accent{ color:var(--blue); }
 /* curriculum modules */
 .modules{ margin-top:52px; }
 .modules h3{ font-size:13px; color:var(--ink-soft); font-weight:700; margin-bottom:20px; text-transform:uppercase; letter-spacing:.06em; }
+.course-label{ font-size:14px; font-weight:800; color:var(--blue-deep); margin:0 0 14px; }
+.course-label + .flow{ margin-top:0; }
+.course-block + .course-block{ margin-top:32px; }
+.flow-4{ grid-template-columns:repeat(4,1fr); }
+@media (max-width:900px){ .flow-4{ grid-template-columns:repeat(2,1fr); } }
 .mod-list{ display:flex; flex-direction:column; }
 .mod{ display:grid; grid-template-columns:90px 1fr; gap:22px; padding:20px 0; border-top:1px solid var(--line); }
 .mod:last-child{ border-bottom:1px solid var(--line); }
@@ -331,7 +336,7 @@ html.js .reveal.in{ opacity:1; transform:translateY(0); }
     <section id="cover">
       <div class="eyebrow">EDUCATION PORTFOLIO</div>
       <h1 class="cover-title">DATA &amp; BUSINESS-DRIVEN<br><span class="accent">HRD</span> PORTFOLIO</h1>
-      <p class="cover-sub">데이터 기반의 <strong>CS 품질 개선부터 전사 AI 역량 내재화까지,</strong> <strong>실질적 비즈니스 성과</strong>를 만드는 교육 기획 포트폴리오</p>
+      <p class="cover-sub">데이터 기반의 비즈니스 병목 진단으로 <strong>CS 품질 표준화</strong>와 <strong>B2B 수주율 제고</strong>를 동시에 이끈 교육 기획 포트폴리오</p>
       <div class="cover-owner">
         <div class="name">최은영</div>
       </div>
@@ -339,7 +344,6 @@ html.js .reveal.in{ opacity:1; transform:translateY(0); }
         <span class="tag-pill">CS 응대 품질 표준화</span>
         <span class="tag-pill">B2B 제안 자산화</span>
         <span class="tag-pill">수주 경쟁력(Win-Rate) 제고</span>
-        <span class="tag-pill">전사 AI·DT 역량 내재화</span>
         <span class="tag-pill">현업 밀착형 HRD</span>
       </div>
     </section>
@@ -689,16 +693,51 @@ html.js .reveal.in{ opacity:1; transform:translateY(0); }
 
       <div class="modules">
         <h3>Action — 수준별 맞춤 커리큘럼</h3>
-        <div class="mod-list">
-          <div class="mod">
-            <div><span class="m-id">과정 01</span><span class="m-time">AI 코딩 기초 · 1일, 8H</span></div>
-            <div><div class="m-title">AI 코딩 이해 및 환경 구축</div><div class="m-desc">AI 코딩 개념 및 개발 환경 구성, 보안/정보보호 가이드로 시작해 코드 자동완성·Agent 모드 실습과 모델·비용 구조 이해로 이어지며, MCP 개념 이해 및 기초 자동화 실습을 거쳐 실무 아이디어 기반 자동화 실습으로 마무리합니다.</div></div>
-          </div>
-          <div class="mod">
-            <div><span class="m-id">과정 02</span><span class="m-time">AI Agent 개발 기초 · 1일, 8H</span></div>
-            <div><div class="m-title">MCP 심화 &amp; RAG 기반 Agent 구현</div><div class="m-desc">Local DB 기반 MCP 서버 구축과 CRUD(조회·추가·수정·삭제) 구현, Embedding·Vector DB 이해를 다루는 RAG 실습을 거쳐 n8n 기반 워크플로우 구성 및 툴 연계로 자동화를 설계하고, RAG·MCP를 연계한 AI Agent 구현으로 마무리합니다.</div></div>
+
+        <div class="course-block">
+          <div class="course-label">AI 코딩 기초 · 1일, 8H</div>
+          <div class="flow flow-4">
+            <div class="flow-step reveal">
+              <div class="fs-n">01</div><div class="fs-t">AI 코딩 이해 및 환경 구축</div><div class="fs-h">개념·환경</div>
+              <div class="fs-d">AI 코딩 개념 및 개발 환경 구성, 보안/정보보호 가이드</div>
+            </div>
+            <div class="flow-step reveal">
+              <div class="fs-n">02</div><div class="fs-t">AI 코딩 Tool의 핵심 기능 실습</div><div class="fs-h">기능 실습</div>
+              <div class="fs-d">코드 자동완성 및 Agent 모드 활용, 모델·비용 구조 이해</div>
+            </div>
+            <div class="flow-step reveal">
+              <div class="fs-n">03</div><div class="fs-t">MCP 입문</div><div class="fs-h">MCP 기초</div>
+              <div class="fs-d">MCP 개념 이해 및 기초 자동화 실습</div>
+            </div>
+            <div class="flow-step reveal">
+              <div class="fs-n">04</div><div class="fs-t">최종실습</div><div class="fs-h">종합 실습</div>
+              <div class="fs-d">실무 아이디어 기반 자동화 실습</div>
+            </div>
           </div>
         </div>
+
+        <div class="course-block">
+          <div class="course-label">AI Agent 개발 기초 · 1일, 8H</div>
+          <div class="flow flow-4">
+            <div class="flow-step reveal">
+              <div class="fs-n">01</div><div class="fs-t">MCP 심화</div><div class="fs-h">서버 구축</div>
+              <div class="fs-d">Local DB 기반 MCP 서버 구축과 CRUD(조회·추가·수정·삭제) 구현</div>
+            </div>
+            <div class="flow-step reveal">
+              <div class="fs-n">02</div><div class="fs-t">RAG</div><div class="fs-h">검색 증강</div>
+              <div class="fs-d">Embedding·Vector DB 이해</div>
+            </div>
+            <div class="flow-step reveal">
+              <div class="fs-n">03</div><div class="fs-t">자동화 설계</div><div class="fs-h">워크플로우</div>
+              <div class="fs-d">n8n 기반 워크플로우 구성 및 툴 연계</div>
+            </div>
+            <div class="flow-step reveal">
+              <div class="fs-n">04</div><div class="fs-t">AI Agent 구현</div><div class="fs-h">종합 구현</div>
+              <div class="fs-d">RAG·MCP를 연계한 AI Agent 구현</div>
+            </div>
+          </div>
+        </div>
+
       </div>
 
       <div class="result-title reveal">
