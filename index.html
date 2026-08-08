@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -67,6 +69,15 @@ nav.rail{
 .rail-links a:hover{ color:var(--ink); }
 .rail-bottom{ font-size:11.5px; color:var(--ink-soft); }
 @media (max-width:860px){ .rail-bottom{display:none;} }
+.pdf-btn{
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  width:100%; padding:11px 14px; border-radius:10px; border:1px solid var(--line);
+  background:var(--card); color:var(--ink); font-family:var(--sans);
+  font-size:13px; font-weight:700; cursor:pointer; transition:background .2s, border-color .2s, color .2s;
+}
+.pdf-btn:hover{ background:var(--blue-soft); border-color:var(--blue); color:var(--blue-deep); }
+.pdf-btn:disabled{ opacity:.6; cursor:default; }
+.pdf-btn svg{ width:15px; height:15px; stroke:currentColor; flex-shrink:0; }
 
 main{ min-width:0; }
 section{ padding:96px clamp(24px,6vw,96px); border-bottom:1px solid var(--line); }
@@ -328,6 +339,12 @@ html.js .reveal.in{ opacity:1; transform:translateY(0); }
         <li><a href="#project3" data-sec="project3"><span class="dot"></span>AI 코딩·Agent 교육</a></li>
         <li><a href="#vision" data-sec="vision"><span class="dot"></span>HRD Vision</a></li>
       </ul>
+    </div>
+    <div class="rail-bottom">
+      <button type="button" class="pdf-btn" id="pdfDownloadBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>
+        <span id="pdfBtnLabel">PDF 다운로드</span>
+      </button>
     </div>
   </nav>
 
@@ -796,6 +813,8 @@ html.js .reveal.in{ opacity:1; transform:translateY(0); }
   </main>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
 const links = document.querySelectorAll('.rail-links a');
 const sections = ['cover','project1','project2','project3','vision'].map(id=>document.getElementById(id));
@@ -884,6 +903,116 @@ counters.forEach(el=> cio.observe(el));
     const c = carousels[trackId];
     if(c) c.goTo(i);
   };
+})();
+
+// ---------- PDF export : "화면에 보이는 그대로" 캡처 방식 ----------
+(function(){
+  const btn = document.getElementById('pdfDownloadBtn');
+  const label = document.getElementById('pdfBtnLabel');
+  if(!btn) return;
+
+  const CAPTURE_WIDTH = 1350; // 스크린샷 예시와 동일한 캡처 기준 너비
+  const NAV_WIDTH = 230;
+
+  async function captureSectionAsCanvas(sectionId){
+    const originalSection = document.getElementById(sectionId);
+    const originalNav = document.querySelector('nav.rail');
+    if(!originalSection || !originalNav) return null;
+
+    // 오프스크린 래퍼 : 실제 화면과 동일하게 nav + section을 나란히 배치
+    const wrapper = document.createElement('div');
+    wrapper.style.position = 'fixed';
+    wrapper.style.top = '0';
+    wrapper.style.left = '-99999px';
+    wrapper.style.zIndex = '-1';
+    wrapper.style.display = 'grid';
+    wrapper.style.gridTemplateColumns = NAV_WIDTH + 'px 1fr';
+    wrapper.style.width = CAPTURE_WIDTH + 'px';
+    wrapper.style.background = getComputedStyle(document.body).getPropertyValue('background-color') || '#f7f9fc';
+
+    const navClone = originalNav.cloneNode(true);
+    navClone.style.position = 'static';
+    navClone.style.height = 'auto';
+    navClone.removeAttribute('id');
+    // 현재 섹션에 해당하는 링크만 active 처리
+    navClone.querySelectorAll('.rail-links a').forEach(a=>{
+      a.classList.toggle('active', a.dataset.sec === sectionId);
+    });
+
+    const sectionClone = originalSection.cloneNode(true);
+    sectionClone.classList.add('is-pdf-capture');
+    // reveal 애니메이션으로 숨겨진 요소가 있으면 모두 노출 처리
+    sectionClone.querySelectorAll('.reveal').forEach(el=> el.classList.add('in'));
+    // 캐러셀은 모든 프레임이 보이도록 transform 초기화
+    sectionClone.querySelectorAll('.ag-track').forEach(el=> { el.style.transform = 'none'; el.style.flexWrap = 'wrap'; });
+    sectionClone.querySelectorAll('.ag-item').forEach(el=> { el.style.flex = '0 0 100%'; el.style.marginBottom = '14px'; });
+
+    wrapper.appendChild(navClone);
+    wrapper.appendChild(sectionClone);
+    document.body.appendChild(wrapper);
+
+    // 폰트/이미지 로딩 대기
+    await new Promise(r=> setTimeout(r, 60));
+
+    const canvas = await html2canvas(wrapper, {
+      scale: 2,
+      useCORS: true,
+      backgroundColor: '#f7f9fc',
+      windowWidth: CAPTURE_WIDTH,
+      width: CAPTURE_WIDTH
+    });
+
+    document.body.removeChild(wrapper);
+    return canvas;
+  }
+
+  btn.addEventListener('click', async function(){
+    if(btn.disabled) return;
+    btn.disabled = true;
+    const prevLabel = label.textContent;
+
+    try{
+      if(typeof html2canvas === 'undefined' || !window.jspdf){
+        alert('PDF 생성 라이브러리를 불러오지 못했습니다. 네트워크 연결을 확인한 뒤 다시 시도해주세요.');
+        return;
+      }
+      const { jsPDF } = window.jspdf;
+      const sectionIds = ['cover','project1','project2','project3','vision'];
+      let pdf = null;
+
+      for(let i=0; i<sectionIds.length; i++){
+        label.textContent = 'PDF 생성 중… (' + (i+1) + '/' + sectionIds.length + ')';
+        const canvas = await captureSectionAsCanvas(sectionIds[i]);
+        if(!canvas) continue;
+        const imgData = canvas.toDataURL('image/jpeg', 0.95);
+        const w = canvas.width;
+        const h = canvas.height;
+
+        if(!pdf){
+          pdf = new jsPDF({
+            orientation: w >= h ? 'landscape' : 'portrait',
+            unit: 'px',
+            format: [w, h],
+            compress: true
+          });
+          pdf.addImage(imgData, 'JPEG', 0, 0, w, h);
+        } else {
+          pdf.addPage([w, h], w >= h ? 'landscape' : 'portrait');
+          pdf.addImage(imgData, 'JPEG', 0, 0, w, h);
+        }
+      }
+
+      if(pdf){
+        pdf.save('최은영_HRD_Portfolio.pdf');
+      }
+    } catch(err){
+      console.error(err);
+      alert('PDF 생성 중 오류가 발생했습니다. 다시 시도해주세요.');
+    } finally {
+      btn.disabled = false;
+      label.textContent = prevLabel;
+    }
+  });
 })();
 </script>
 </body>
