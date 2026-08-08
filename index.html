@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -340,10 +338,14 @@ html.js .reveal.in{ opacity:1; transform:translateY(0); }
         <li><a href="#vision" data-sec="vision"><span class="dot"></span>HRD Vision</a></li>
       </ul>
     </div>
-    <div class="rail-bottom">
-      <button type="button" class="pdf-btn" id="pdfDownloadBtn">
+    <div class="rail-bottom" id="pdfRailBottom">
+      <button type="button" class="pdf-btn" id="pdfDownloadBtnExpanded">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>
-        <span id="pdfBtnLabel">PDF 다운로드</span>
+        <span class="pdf-btn-label">PDF 다운로드 (전체 펼침)</span>
+      </button>
+      <button type="button" class="pdf-btn" id="pdfDownloadBtnAsIs" style="margin-top:8px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>
+        <span class="pdf-btn-label">PDF 다운로드 (화면 그대로)</span>
       </button>
     </div>
   </nav>
@@ -907,14 +909,14 @@ counters.forEach(el=> cio.observe(el));
 
 // ---------- PDF export : "화면에 보이는 그대로" 캡처 방식 ----------
 (function(){
-  const btn = document.getElementById('pdfDownloadBtn');
-  const label = document.getElementById('pdfBtnLabel');
-  if(!btn) return;
+  const btnExpanded = document.getElementById('pdfDownloadBtnExpanded');
+  const btnAsIs = document.getElementById('pdfDownloadBtnAsIs');
+  if(!btnExpanded && !btnAsIs) return;
 
   const CAPTURE_WIDTH = 1350; // 스크린샷 예시와 동일한 캡처 기준 너비
   const NAV_WIDTH = 230;
 
-  async function captureSectionAsCanvas(sectionId){
+  async function captureSectionAsCanvas(sectionId, expandAll){
     const originalSection = document.getElementById(sectionId);
     const originalNav = document.querySelector('nav.rail');
     if(!originalSection || !originalNav) return null;
@@ -934,6 +936,9 @@ counters.forEach(el=> cio.observe(el));
     navClone.style.position = 'static';
     navClone.style.height = 'auto';
     navClone.removeAttribute('id');
+    // PDF 다운로드 버튼 영역은 캡처에서 제외
+    const railBottomInClone = navClone.querySelector('#pdfRailBottom');
+    if(railBottomInClone) railBottomInClone.remove();
     // 현재 섹션에 해당하는 링크만 active 처리
     navClone.querySelectorAll('.rail-links a').forEach(a=>{
       a.classList.toggle('active', a.dataset.sec === sectionId);
@@ -943,9 +948,14 @@ counters.forEach(el=> cio.observe(el));
     sectionClone.classList.add('is-pdf-capture');
     // reveal 애니메이션으로 숨겨진 요소가 있으면 모두 노출 처리
     sectionClone.querySelectorAll('.reveal').forEach(el=> el.classList.add('in'));
-    // 캐러셀은 모든 프레임이 보이도록 transform 초기화
-    sectionClone.querySelectorAll('.ag-track').forEach(el=> { el.style.transform = 'none'; el.style.flexWrap = 'wrap'; });
-    sectionClone.querySelectorAll('.ag-item').forEach(el=> { el.style.flex = '0 0 100%'; el.style.marginBottom = '14px'; });
+
+    if(expandAll){
+      // "전체 펼침" 모드 : 캐러셀의 모든 프레임을 세로로 나열
+      sectionClone.querySelectorAll('.ag-track').forEach(el=> { el.style.transform = 'none'; el.style.flexWrap = 'wrap'; });
+      sectionClone.querySelectorAll('.ag-item').forEach(el=> { el.style.flex = '0 0 100%'; el.style.marginBottom = '14px'; });
+      sectionClone.querySelectorAll('.ag-nav, .ag-dots').forEach(el=> { el.style.display = 'none'; });
+    }
+    // "화면 그대로" 모드 : cloneNode가 현재 transform(=현재 보고 있는 슬라이드)을 그대로 복사하므로 별도 처리 불필요
 
     wrapper.appendChild(navClone);
     wrapper.appendChild(sectionClone);
@@ -966,10 +976,13 @@ counters.forEach(el=> cio.observe(el));
     return canvas;
   }
 
-  btn.addEventListener('click', async function(){
-    if(btn.disabled) return;
-    btn.disabled = true;
+  async function runExport(btn, expandAll, filenameSuffix){
+    if(!btn || btn.disabled) return;
+    const otherBtn = btn === btnExpanded ? btnAsIs : btnExpanded;
+    const label = btn.querySelector('.pdf-btn-label');
     const prevLabel = label.textContent;
+    btn.disabled = true;
+    if(otherBtn) otherBtn.disabled = true;
 
     try{
       if(typeof html2canvas === 'undefined' || !window.jspdf){
@@ -982,7 +995,7 @@ counters.forEach(el=> cio.observe(el));
 
       for(let i=0; i<sectionIds.length; i++){
         label.textContent = 'PDF 생성 중… (' + (i+1) + '/' + sectionIds.length + ')';
-        const canvas = await captureSectionAsCanvas(sectionIds[i]);
+        const canvas = await captureSectionAsCanvas(sectionIds[i], expandAll);
         if(!canvas) continue;
         const imgData = canvas.toDataURL('image/jpeg', 0.95);
         const w = canvas.width;
@@ -1003,16 +1016,24 @@ counters.forEach(el=> cio.observe(el));
       }
 
       if(pdf){
-        pdf.save('최은영_HRD_Portfolio.pdf');
+        pdf.save('최은영_HRD_Portfolio' + filenameSuffix + '.pdf');
       }
     } catch(err){
       console.error(err);
       alert('PDF 생성 중 오류가 발생했습니다. 다시 시도해주세요.');
     } finally {
       btn.disabled = false;
+      if(otherBtn) otherBtn.disabled = false;
       label.textContent = prevLabel;
     }
-  });
+  }
+
+  if(btnExpanded){
+    btnExpanded.addEventListener('click', ()=> runExport(btnExpanded, true, '_전체펼침'));
+  }
+  if(btnAsIs){
+    btnAsIs.addEventListener('click', ()=> runExport(btnAsIs, false, '_화면그대로'));
+  }
 })();
 </script>
 </body>
