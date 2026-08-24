@@ -316,7 +316,8 @@ h1.cover-title .accent{ color:var(--blue); }
   font-size:clamp(20px,3vw,32px); font-weight:800; line-height:1.55; max-width:100%; margin-top:20px; color:var(--ink);
 }
 .vision-quote .accent{ color:var(--blue); }
-.vision-grid{ margin-top:56px; display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+.vision-grid{ margin-top:56px; display:grid; grid-template-columns:repeat(4,1fr); gap:18px; }
+@media (max-width:1100px){ .vision-grid{grid-template-columns:repeat(2,1fr);} }
 @media (max-width:760px){ .vision-grid{grid-template-columns:1fr;} }
 .vision-grid div{ background:var(--card); border:1px solid var(--line); border-radius:18px; padding:24px; text-align:center; }
 .vision-grid .vg-n{ font-size:20px; color:var(--blue-deep); margin-bottom:10px; font-weight:800; }
@@ -912,7 +913,7 @@ html.js .reveal.in{ opacity:1; transform:translateY(0); }
     <!-- SECTION 6 : VISION -->
     <section id="vision">
       <div class="eyebrow">HRD Philosophy &amp; Vision</div>
-      <p class="vision-quote">단순 수료율을 넘어, 현업의 실질적 <span class="accent">행동 변화</span>와 <span class="accent">예산 효율성</span>을 성과로 입증하는 HRD 전문가가 되겠습니다.</p>
+      <p class="vision-quote">단순 수료율을 넘어, 현업의 실질적 <span class="accent">행동 변화</span>와 <span class="accent">지속 가능한 학습체계</span>, <span class="accent">예산 효율성</span>을 성과로 입증하는 HRD 전문가가 되겠습니다.</p>
       <div class="vision-grid">
         <div class="reveal">
           <div class="vg-n">Design</div>
@@ -923,8 +924,12 @@ html.js .reveal.in{ opacity:1; transform:translateY(0); }
           <p>대규모 차수 운영 시에도 표준 품질을 유지하며, 현업 공백을 최소화하는 일정을 설계합니다.</p>
         </div>
         <div class="reveal">
+          <div class="vg-n">System</div>
+          <p>교육을 개별 과정으로 끝내지 않고 학습조직·HRD 제도·운영체계로 연결해 지속 가능한 학습 기반을 만듭니다.</p>
+        </div>
+        <div class="reveal">
           <div class="vg-n">Prove</div>
-          <p>단순 만족도 점수를 넘어 예산 절감, 자산화, 행동 변화를 수치로 증명합니다.</p>
+          <p>단순 만족도를 넘어 행동 변화·교육 투자 효율·제도 개선을 수치와 결과로 증명합니다.</p>
         </div>
       </div>
     </section>
