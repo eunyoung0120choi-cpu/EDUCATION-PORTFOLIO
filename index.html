@@ -227,6 +227,12 @@ h1.cover-title .accent{ color:var(--blue); }
 .graph{ background:var(--card); border:1px solid var(--line); border-radius:18px; padding:26px; }
 .graph svg{ width:100%; height:auto; display:block; }
 .graph .cap{ margin-top:12px; font-size:11.5px; color:var(--ink-soft); font-weight:600; }
+.dual-graph{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.dual-graph-card{ background:var(--card); border:1px solid var(--line); border-radius:16px; padding:18px 16px 16px; min-width:0; }
+.dual-graph-card .dg-title{ font-size:12px; font-weight:800; color:var(--ink); margin-bottom:8px; }
+.dual-graph-card .dg-sub{ font-size:10.5px; font-weight:600; color:var(--ink-soft); margin-top:8px; line-height:1.45; }
+.dual-graph-card svg{ width:100%; height:auto; display:block; }
+@media (max-width:760px){ .dual-graph{ grid-template-columns:1fr; } }
 
 /* section 3 - stage flow */
 .flow{ margin-top:52px; display:grid; grid-template-columns:repeat(5,1fr); gap:10px; }
@@ -335,6 +341,7 @@ html.js .reveal.in{ opacity:1; transform:translateY(0); }
         <li><a href="#project1" data-sec="project1"><span class="dot"></span>CS 역량 내재화</a></li>
         <li><a href="#project2" data-sec="project2"><span class="dot"></span>B2B 제안 과정</a></li>
         <li><a href="#project3" data-sec="project3"><span class="dot"></span>AI 코딩·Agent 교육</a></li>
+        <li><a href="#project4" data-sec="project4"><span class="dot"></span>HRD 체계·제도</a></li>
         <li><a href="#vision" data-sec="vision"><span class="dot"></span>HRD Vision</a></li>
       </ul>
     </div>
@@ -355,7 +362,7 @@ html.js .reveal.in{ opacity:1; transform:translateY(0); }
     <section id="cover">
       <div class="eyebrow">EDUCATION PORTFOLIO</div>
       <h1 class="cover-title">DATA &amp; BUSINESS-DRIVEN<br><span class="accent">HRD</span> PORTFOLIO</h1>
-      <p class="cover-sub">데이터 기반의 <strong>CS 품질 개선부터 전사 AI 역량 내재화까지, 실질적 비즈니스 성과</strong>를 만드는 교육 기획 포트폴리오</p>
+      <p class="cover-sub">데이터 기반의 <strong>CS 품질 개선부터 전사 AI 역량 내재화, HRD 체계 개선까지</strong> 실질적 비즈니스 성과를 만드는 교육 기획 포트폴리오</p>
       <div class="cover-owner">
         <div class="name">최은영</div>
       </div>
@@ -364,7 +371,7 @@ html.js .reveal.in{ opacity:1; transform:translateY(0); }
         <span class="tag-pill">B2B 제안 자산화</span>
         <span class="tag-pill">수주 경쟁력(Win-Rate) 제고</span>
         <span class="tag-pill">전사 AI·DT 역량 내재화</span>
-        <span class="tag-pill">현업 밀착형 HRD</span>
+        <span class="tag-pill">2026 Best HRD 최종 인증</span>
 
       </div>
     </section>
@@ -790,7 +797,119 @@ html.js .reveal.in{ opacity:1; transform:translateY(0); }
       </div>
     </section>
 
-    <!-- SECTION 5 : VISION -->
+    <!-- SECTION 5 : PROJECT 4 -->
+    <section id="project4">
+      <div class="eyebrow">프로젝트 사례 04</div>
+      <div class="proj-head">
+        <h2>교육과정을 넘어, HRD 체계·제도까지</h2>
+        <span class="tag-pill">2026 Best HRD · HRD Governance</span>
+      </div>
+      <p class="proj-desc">개별 교육과정의 기획·운영을 넘어 회사의 인재육성 체계와 교육 실적, 학습제도 및 교육 투자 구조를 종합적으로 점검하고 개선한 HRD 체계·제도 프로젝트</p>
+      <div class="impact-banner"><span class="ib-ico">💡</span><span>Best HRD 인증 신청부터 지표별 증빙자료 구성, 서류·현장심사 질의 대응까지 전 과정을 수행하고, 학습조직 및 HRD-Net 제도를 함께 개선해 <strong>4개 정부부처 공동 명의의 ‘2026 Best HRD’ 최종 인증 획득에 기여</strong>했습니다.</span></div>
+
+      <div class="kpi-row kpi-center">
+        <div class="kpi reveal"><div class="val">2026<span> Best HRD</span></div><div class="label">인적자원개발 우수기관<br>최종 인증 획득</div></div>
+        <div class="kpi reveal"><div class="val">25 → 46<span>개</span></div><div class="label">학습조직 참여 확대<br><strong>+84%</strong></div></div>
+        <div class="kpi reveal"><div class="val">약 3.5<span>억 원</span></div><div class="label">고용보험 환급 규모<br>프로세스 체계화 성과</div></div>
+        <div class="kpi reveal"><div class="val">4<span>개 부처</span></div><div class="label">고용노동부·교육부·산업통상자원부·<br>중소벤처기업부 공동 명의</div></div>
+      </div>
+
+      <div class="challenge-card">
+        <h3 style="font-size:13px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-soft); font-weight:700; margin:0;">Challenge — 기획 배경</h3>
+        <div class="challenge-item">
+          <span class="challenge-tag">비즈니스 현황</span>
+          <p>교육과정 단위의 운영 성과는 축적되어 있었으나, 회사 전체의 인재육성 활동을 제도·운영·성과 관점에서 종합 점검하고 지속 가능한 HRD 체계로 연결할 필요가 있었습니다.</p>
+        </div>
+        <div class="challenge-item">
+          <span class="challenge-tag">해결 과제</span>
+          <p>인재육성 체계와 교육 실적을 객관적인 지표로 정리하고, 학습조직·교육비·고용보험 환급 등 제도를 정비해 HRD 활동의 지속성과 운영 효율을 함께 높이는 것이 핵심 과제였습니다.</p>
+        </div>
+      </div>
+
+      <div class="modules">
+        <h3>Action — HRD 체계·제도 개선 프로세스</h3>
+        <div class="flow flow-4 flow-center">
+          <div class="flow-step reveal">
+            <div class="fs-n">01</div><div class="fs-t">Analysis</div><div class="fs-h">인재육성 현황 진단</div>
+            <div class="fs-d">인재육성 체계, 교육 운영 실적, 관련 제도 및 지표별 현황을 종합 점검하고 인증 기준에 맞춰 현행 수준과 보완 과제를 정리</div>
+          </div>
+          <div class="flow-step reveal">
+            <div class="fs-n">02</div><div class="fs-t">System</div><div class="fs-h">학습제도 개선</div>
+            <div class="fs-d">학습조직 신청·운영 프로세스와 결과물 제출 기준을 정비하고, 학습 결과물을 조직 내 지식자산으로 축적할 수 있는 운영 기반 마련</div>
+          </div>
+          <div class="flow-step reveal">
+            <div class="fs-n">03</div><div class="fs-t">Governance</div><div class="fs-h">Best HRD 인증</div>
+            <div class="fs-d">인증 신청, 지표별 증빙자료 취합·구성, 보고서 작성 및 서류심사·현장심사 질의 대응까지 인증 실무 전 과정 수행</div>
+          </div>
+          <div class="flow-step reveal">
+            <div class="fs-n">04</div><div class="fs-t">Efficiency</div><div class="fs-h">교육 투자 효율화</div>
+            <div class="fs-d">HRD-Net 환급 대상 과정을 발굴하고 인정·실시·수료·비용 데이터를 체계화해 환급 누락과 행정 리스크를 최소화</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="result-title reveal">
+        <span class="rt-eyebrow">RESULT</span>
+        <h3>HRD System Impact</h3>
+      </div>
+      <div class="impact reveal">
+        <div class="impact-text">
+          <div class="result-stats">
+            <div class="result-stat"><div class="rs-val">Best HRD</div><div class="rs-label">2026 최종 인증</div></div>
+            <div class="result-stat"><div class="rs-val">+84<span>%</span></div><div class="rs-label">학습조직 참여 증가</div></div>
+          </div>
+          <p><strong>정부 인증 —</strong> 회사의 인재육성 체계와 교육 운영 실적, 관련 제도를 종합적으로 점검하고 인증 신청부터 증빙자료 구성, 서류·현장심사 질의 대응까지 실무를 수행했습니다. 그 결과 서류·현장심사와 인증위원회 심의를 거쳐 4개 정부부처 공동 명의의 <strong>‘2026 Best HRD’ 최종 인증 획득에 기여</strong>했습니다.</p>
+          <p><strong>학습문화 —</strong> 학습조직 신청·운영 기준과 결과물 제출 체계를 정비해 참여 조직을 25개에서 46개로 확대(+84%)하고, 구성원의 학습 결과를 조직 내 지식자산으로 축적할 수 있는 기반을 마련했습니다.</p>
+          <p><strong>교육 투자 효율 —</strong> 환급 대상 과정 발굴과 HRD-Net 운영 프로세스 체계화를 통해 약 1,900만 원 수준이던 고용보험 환급 규모를 약 3억 5천만 원까지 확대했습니다.</p>
+        </div>
+        <div class="dual-graph">
+          <div class="dual-graph-card">
+            <div class="dg-title">Learning Culture · 학습문화 확산</div>
+            <svg viewBox="0 0 240 150" preserveAspectRatio="none" aria-label="학습조직 참여 조직 수 25개에서 46개로 증가">
+              <line x1="16" y1="116" x2="224" y2="116" stroke="#e7eaf1" stroke-width="1"/>
+              <rect x="48" y="66" width="54" height="50" rx="7" fill="#c9d8fb"/>
+              <rect x="142" y="24" width="54" height="92" rx="7" fill="#2f5fe0"/>
+              <text x="75" y="56" text-anchor="middle" font-size="12" fill="#5b6472" font-weight="700" font-family="Pretendard Variable, sans-serif">25개</text>
+              <text x="169" y="15" text-anchor="middle" font-size="12" fill="#1f45b8" font-weight="800" font-family="Pretendard Variable, sans-serif">46개</text>
+              <text x="75" y="136" text-anchor="middle" font-size="9.5" fill="#5b6472" font-family="Pretendard Variable, sans-serif">개편 전</text>
+              <text x="169" y="136" text-anchor="middle" font-size="9.5" fill="#1f45b8" font-weight="700" font-family="Pretendard Variable, sans-serif">개편 후 +84%</text>
+            </svg>
+            <div class="dg-sub">학습조직 제도 개편을 통한 참여 조직 확대</div>
+          </div>
+
+          <div class="dual-graph-card">
+            <div class="dg-title">Cost Efficiency · 교육 투자 효율</div>
+            <svg viewBox="0 0 240 150" preserveAspectRatio="none" aria-label="고용보험 환급 규모 2024년 0.19억, 2025년 1.9억, 2026년 상반기 3.5억으로 확대">
+              <line x1="14" y1="116" x2="226" y2="116" stroke="#e7eaf1" stroke-width="1"/>
+              <rect x="32" y="106" width="42" height="10" rx="5" fill="#dfe8fc"/>
+              <rect x="99" y="67" width="42" height="49" rx="6" fill="#9fb8f3"/>
+              <rect x="166" y="26" width="42" height="90" rx="6" fill="#2f5fe0"/>
+              <text x="53" y="98" text-anchor="middle" font-size="10" fill="#5b6472" font-weight="700" font-family="Pretendard Variable, sans-serif">0.19억</text>
+              <text x="120" y="59" text-anchor="middle" font-size="10" fill="#5b6472" font-weight="700" font-family="Pretendard Variable, sans-serif">1.9억</text>
+              <text x="187" y="17" text-anchor="middle" font-size="10" fill="#1f45b8" font-weight="800" font-family="Pretendard Variable, sans-serif">3.5억</text>
+              <text x="53" y="136" text-anchor="middle" font-size="9" fill="#5b6472" font-family="Pretendard Variable, sans-serif">2024</text>
+              <text x="120" y="136" text-anchor="middle" font-size="9" fill="#5b6472" font-family="Pretendard Variable, sans-serif">2025</text>
+              <text x="187" y="136" text-anchor="middle" font-size="9" fill="#1f45b8" font-weight="700" font-family="Pretendard Variable, sans-serif">2026 상반기</text>
+            </svg>
+            <div class="dg-sub">환급 대상 과정 확대 및 HRD-Net 프로세스 체계화</div>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="font-size:13px; color:var(--ink-soft); font-weight:700; margin-top:52px; text-transform:uppercase; letter-spacing:.06em;">Result — Governance &amp; Efficiency</h3>
+      <div class="finance reveal">
+        <div>
+          <div class="big">2026 Best HRD</div>
+          <div class="small-label">서류·현장심사와 인증위원회 심의를 거쳐 4개 정부부처 공동 명의 인적자원개발 우수기관 최종 인증 획득에 기여했습니다.</div>
+        </div>
+        <div>
+          <div class="big">약 3.5<span style="font-size:15px; color:var(--ink-soft); font-weight:600;">억 원</span></div>
+          <div class="small-label">환급 대상 과정 확대와 데이터·프로세스 정비를 통해 교육 투자 재원을 확대하고 HRD 운영의 효율성을 높였습니다.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6 : VISION -->
     <section id="vision">
       <div class="eyebrow">HRD Philosophy &amp; Vision</div>
       <p class="vision-quote">단순 수료율을 넘어, 현업의 실질적 <span class="accent">행동 변화</span>와 <span class="accent">예산 효율성</span>을 성과로 입증하는 HRD 전문가가 되겠습니다.</p>
@@ -819,7 +938,7 @@ html.js .reveal.in{ opacity:1; transform:translateY(0); }
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
 const links = document.querySelectorAll('.rail-links a');
-const sections = ['cover','project1','project2','project3','vision'].map(id=>document.getElementById(id));
+const sections = ['cover','project1','project2','project3','project4','vision'].map(id=>document.getElementById(id));
 const io = new IntersectionObserver((entries)=>{
   entries.forEach(e=>{
     if(e.isIntersecting){
@@ -990,7 +1109,7 @@ counters.forEach(el=> cio.observe(el));
         return;
       }
       const { jsPDF } = window.jspdf;
-      const sectionIds = ['cover','project1','project2','project3','vision'];
+      const sectionIds = ['cover','project1','project2','project3','project4','vision'];
       let pdf = null;
 
       for(let i=0; i<sectionIds.length; i++){
