@@ -27,6 +27,9 @@ body{
   color:var(--ink);
   line-height:1.6;
   -webkit-font-smoothing:antialiased;
+  /* 한글 단어가 줄 중간에서 잘리지 않도록 공백 단위로 줄바꿈 */
+  word-break:keep-all;
+  overflow-wrap:break-word;
 }
 @media (prefers-reduced-motion: reduce){
   *{animation-duration:0.01ms !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
@@ -84,7 +87,11 @@ section{ padding:96px clamp(24px,6vw,96px); border-bottom:1px solid var(--line);
   font-size:13px; font-weight:700; color:var(--blue-deep); margin-bottom:16px;
 }
 .eyebrow::before{ content:""; width:22px; height:2px; background:var(--blue); border-radius:2px; }
-h1,h2,h3{ font-weight:800; letter-spacing:-0.02em; }
+h1,h2,h3{ font-weight:800; letter-spacing:-0.02em; word-break:keep-all; overflow-wrap:break-word; }
+p, .proj-desc, .impact-banner, .challenge-item p, .flow-step .fs-d, .kpi .label, .vision-quote, .vision-grid p{
+  word-break:keep-all;
+  overflow-wrap:break-word;
+}
 
 .tag-pill{
   display:inline-flex; align-items:center; padding:8px 16px; border-radius:999px;
